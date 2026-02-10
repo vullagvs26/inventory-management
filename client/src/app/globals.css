@@ -25,3 +25,19 @@ body {
   height: 100%;
   width: 100%;
 }
+
+@media (min-width: 768px) {
+  .custom-grid-rows {
+    height: 200vh;
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .custom-grid-rows {
+    height: 100vh;
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+  }
+}
