@@ -1,9 +1,16 @@
+import { url } from "inspector";
+import { getProducts } from "./../../../../server/src/controllers/productController";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 
 export interface Product {
   price: string;
   productId: number;
+  name: string;
+  rating?: number;
+  stockQuantity: number;
+}
+export interface NewProduct {
+  price: string;
   name: string;
   rating?: number;
   stockQuantity: number;
@@ -42,15 +49,34 @@ export interface DashboardMetrics {
 }
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL}),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics"],
+  tagTypes: ["DashboardMetrics", "Products"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
       query: () => "/dashboard",
       providesTags: ["DashboardMetrics"],
     }),
+    getProducts: build.query<Product[], string | void>({
+      query: (search) => ({
+        url: "/product",
+        params: search ? { search } : {},
+      }),
+      providesTags: ["Products"],
+    }),
+    createProduct: build.mutation<Product, NewProduct>({
+      query: (newProduct) => ({
+        url: "/product",
+        method: "POST",
+        body: newProduct,
+      }),
+      invalidatesTags: ["Products", "DashboardMetrics"],
+    }),
   }),
 });
 
-export const { useGetDashboardMetricsQuery } = api;
+export const {
+  useGetDashboardMetricsQuery,
+  useGetProductsQuery,
+  useCreateProductMutation,
+} = api;
