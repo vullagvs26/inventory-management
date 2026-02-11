@@ -1,16 +1,15 @@
-import { url } from "inspector";
-import { getProducts } from "./../../../../server/src/controllers/productController";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Product {
-  price: string;
-  productId: number;
+  price: number;
+  productId: string;
   name: string;
   rating?: number;
   stockQuantity: number;
 }
 export interface NewProduct {
-  price: string;
+  productId: string;
+  price: number;
   name: string;
   rating?: number;
   stockQuantity: number;
@@ -27,6 +26,12 @@ export interface PurchaseSummary {
   totalPurchased: number;
   changePercentage?: number;
   date: string;
+}
+
+export interface User {
+  userId: string;
+  name: string;
+  email: string;
 }
 export interface ExpenseSummary {
   expenseSummaryId: string;
@@ -51,7 +56,7 @@ export interface DashboardMetrics {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics", "Products"],
+  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses"],
   endpoints: (build) => ({
     getDashboardMetrics: build.query<DashboardMetrics, void>({
       query: () => "/dashboard",
@@ -70,7 +75,15 @@ export const api = createApi({
         method: "POST",
         body: newProduct,
       }),
-      invalidatesTags: ["Products", "DashboardMetrics"],
+      invalidatesTags: ["Products"],
+    }),
+    getUsers: build.query<User[], void>({
+      query: () => "/users",
+      providesTags: ["Users"],
+    }),
+    getExpensesByCategory: build.query<ExpenseByCategorySummary[], void>({
+      query: () => "/expense",
+      providesTags: ["Expenses"],
     }),
   }),
 });
@@ -79,4 +92,6 @@ export const {
   useGetDashboardMetricsQuery,
   useGetProductsQuery,
   useCreateProductMutation,
+  useGetUsersQuery,
+  useGetExpensesByCategoryQuery,
 } = api;

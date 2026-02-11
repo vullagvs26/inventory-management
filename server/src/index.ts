@@ -4,9 +4,12 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
+
 // Routes import
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import expenseRoutes from "./routes/expenseRoutes.js";
 
 // Configuration
 const app = express();
@@ -19,11 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 // Routes
-app.get("/hello", (_req: Request, res: Response) => {
-  res.send("Welcome to the Inventory Management API");
-});
 app.use("/dashboard", dashboardRoutes);
 app.use("/product", productRoutes);
+app.use("/users", userRoutes);
+app.use("/expense", expenseRoutes);
 
 // Server 
 const port = process.env.PORT || 3000;

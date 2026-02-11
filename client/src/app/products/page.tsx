@@ -9,6 +9,7 @@ import CreateProductModal from "./CreateProductModel";
 import Image from "next/image";
 
 type ProductFormData = {
+  productId: string;
   name: string;
   price: number;
   stockQuantity: number;
@@ -29,7 +30,6 @@ const Products = () => {
   const handleCreateProduct = async (productData: ProductFormData) => {
     await createProduct({
       ...productData,
-      price: productData.price.toString(),
     });
   };
 
@@ -96,7 +96,7 @@ const Products = () => {
                   {product.name}
                 </h3>
                 <p className="text-gray-800 dark:text-gray-200">
-                  ${parseFloat(product.price).toFixed(2)}
+                  ${product.price.toFixed(2)}
                 </p>
                 <div className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                   Stock: {product.stockQuantity}
