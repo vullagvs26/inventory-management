@@ -86,7 +86,7 @@ const Sidebar = () => {
             isSidebarCollapsed ? "hidden" : "block"
           } font-extrabold text-2xl`}
         >
-          EDSTOCK
+          HULMA
         </h1>
 
         <button
@@ -140,7 +140,7 @@ const Sidebar = () => {
       {/* FOOTER */}
       <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
         <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-          &copy; 2024 Edstock
+          &copy; 2026 Hulma. All rights reserved.
         </p>
       </div>
     </div>
