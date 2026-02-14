@@ -78,16 +78,32 @@ const Sidebar = () => {
       {/* TOP LOGO */}
       <div
         className={`flex gap-3 justify-between md:justify-normal items-center pt-8 ${
-          isSidebarCollapsed ? "px-5" : "px-8"
+          isSidebarCollapsed ? "px-0" : "px-8"
         }`}
       >
-        <h1
-          className={`${
-            isSidebarCollapsed ? "hidden" : "block"
-          } font-extrabold text-2xl`}
+        <div
+          className={`flex items-center gap-2 ${
+            isSidebarCollapsed ? "justify-center w-full" : ""
+          }`}
         >
-          HULMA
-        </h1>
+          <Image
+            src="/2.png"
+            alt="Hulma logo"
+            width={isSidebarCollapsed ? 40 : 48}
+            height={isSidebarCollapsed ? 40 : 48}
+            className={`${
+              isSidebarCollapsed ? "h-10 w-10" : "h-12 w-12"
+            } rounded-full object-cover`}
+            priority
+          />
+          <h1
+            className={`${
+              isSidebarCollapsed ? "hidden" : "block"
+            } font-extrabold text-2xl`}
+          >
+            HULMA
+          </h1>
+        </div>
 
         <button
           className="md:hidden px-3 py-3 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-blue-100 dark:hover:bg-gray-700"
