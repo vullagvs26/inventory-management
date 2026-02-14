@@ -27,6 +27,13 @@ app.use("/product", productRoutes);
 app.use("/users", userRoutes);
 app.use("/expense", expenseRoutes);
 
+
+// Root route for testing
+app.get("/", (req: Request, res: Response) => {
+  res.send("Inventory Management API is running!");
+});
+
+
 // Server 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
